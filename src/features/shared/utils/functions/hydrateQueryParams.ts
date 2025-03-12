@@ -1,5 +1,5 @@
 type TQueryParam = {
-  [key: string]: any
+  [key: string]: string
 }
 
 export function hydrateQueryParams(queryParams: TQueryParam[]): string {
