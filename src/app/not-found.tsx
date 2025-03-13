@@ -1,4 +1,4 @@
-import ImageAndTextPageComponent from "@/features/shared/components/ImageAndTextPageComponent";
+import ImageAndTextPageComponent from "@/features/app/components/ImageAndTextPageComponent";
 
 export default function NotFound() {
   const src = `/notFound${Math.floor(Math.random() * 3) + 1}.svg`;

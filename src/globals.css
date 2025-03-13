@@ -1,26 +1,111 @@
+@tailwind utilities;
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --admin-navbar-height: 5.5rem;
+  --app-navbar-height: 5.313rem;
+  --footer-height: 4.625rem;
+  --font: #383838;
+  --bg: white;
+  --button: #0214DC;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-hind);
+
+  /* Remove as setinhas dos inputs numéricos */
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-inter);
+}
+
+@layer base {
+  h1 {
+    @apply text-[3.375rem] font-black leading-[5rem];
+  }
+
+  h2 {
+    @apply text-[2rem] font-bold leading-[3rem];
+  }
+
+  h3 {
+    @apply text-[1.5rem] font-bold leading-9;
+  }
+
+  h4 {
+    @apply text-[1.375rem] font-medium leading-8;
+  }
+
+  h5 {
+    @apply text-[1.375rem] font-light leading-8;
+  }
+
+  h6 {
+    @apply text-[1.125rem] font-bold leading-7;
+  }
+
+}
+
+@layer components {
+  .navbar-drawer {
+    .MuiDrawer-paper {
+      @apply items-center lg:mt-[5.5rem] lg:h-20 lg:flex-row lg:overflow-hidden;
+      @apply bottom-0 top-[5.5rem] items-baseline gap-[0.5rem] lg:top-0 lg:justify-center;
+    }
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .custom-stepper {
+    @apply gap-4 lg:flex-row flex-col text-lg items-start;
+  }
+
+  .custom-stepper-label span {
+    @apply text-lg;
+  }
+
+  .custom-box-selector {
+    @apply flex items-center justify-center border border-black transition cursor-pointer;
+  }
+
+  .grid-print-label-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 4mm;
+    row-gap: 0;
+    height: 279.4mm;
+    width: 215.9mm;
+    padding: 35px 11px;
+  }
+
+  .child-print-label {
+    width: 66.7mm;
+    height: 25.4mm;
+    padding: 4mm;
+    border-radius: 8px;
+  }
 }

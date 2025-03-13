@@ -9,7 +9,6 @@ export const colors = {
   "white-2": "#F4F4F6",
   "dark-blue": "#001489",
   "dark-blue-2": "#083365",
-  "light-blue": "#1976D2",
   footer: "#2F3245",
   cyan: "#00C7C0",
   darkDisabled: "rgb(0,0,0, 0.26)",
@@ -27,17 +26,17 @@ export default {
   theme: {
     extend: {
       colors,
-      //   screens: {
-      //     '2xl': '1600px'
-      //   },
-      //   boxShadow: {
-      //     card: '0px 1px 5px 0px #00000033',
-      //     dialog: '0px 4px 4px 0px #00000040',
-      //     'printed-material': '0px 0px 3px 0px #00000040'
-      //   },
-      //   letterSpacing: {
-      //     title: '0.313rem'
-      //   }
+      screens: {
+        "2xl": "1600px",
+      },
+      boxShadow: {
+        card: "0px 1px 5px 0px #00000033",
+        dialog: "0px 4px 4px 0px #00000040",
+        "printed-material": "0px 0px 3px 0px #00000040",
+      },
+      letterSpacing: {
+        title: "0.313rem",
+      },
     },
   },
   plugins: [],
