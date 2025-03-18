@@ -34,7 +34,7 @@ export default function Navbar() {
     >
       <Container maxWidth="xl" className="flex items-center justify-between">
         <Typography
-          variant="h4"
+          variant="h5"
           noWrap
           component="a"
           href="#app-bar-with-responsive-menu"

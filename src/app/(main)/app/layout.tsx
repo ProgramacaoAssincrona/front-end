@@ -1,3 +1,4 @@
+import Footer from "@/features/app/components/Footer";
 import Navbar from "@/features/app/components/Navbar";
 import { ReactNode } from "react";
 
@@ -10,7 +11,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         {children}
       </main>
 
-      {/* <SharedFooter /> */}
+      <Footer />
     </>
   );
 }
