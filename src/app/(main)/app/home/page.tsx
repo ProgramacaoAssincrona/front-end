@@ -1,5 +1,4 @@
 import ProductCard from "@/features/app/components/ProductCard";
-import { Container } from "@mui/material";
 import {
   Carousel,
   CarouselContent,
@@ -7,6 +6,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { CarouselBanner } from "@/features/app/components/CarouselBanner";
+import { Container, Typography } from "@mui/material";
 
 interface ICategory {
   icon: string;
@@ -55,6 +56,16 @@ const MockProducts = [
     },
   },
 ];
+interface IProduct {
+  id: number;
+  image: string;
+  title: string;
+  price: number;
+  evaluation?: {
+    stars: number;
+    numberEvaluation: number;
+  };
+}
 
 export default function Page() {
   return (
@@ -67,9 +78,7 @@ export default function Page() {
       >
         <CarouselContent>
           {MockProducts.map((product) => (
-            <CarouselItem
-              key={product.id}
-            >
+            <CarouselItem key={product.id}>
               <ProductCard {...product} />
             </CarouselItem>
           ))}
@@ -77,6 +86,12 @@ export default function Page() {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
+      <div className="flex justify-center">
+        <CarouselBanner />
+      </div>
+      <Typography className="text-2xl font-bold">
+        Procure por categoria
+      </Typography>
     </Container>
   );
 }
