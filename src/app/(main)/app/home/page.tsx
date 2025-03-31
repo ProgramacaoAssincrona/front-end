@@ -9,10 +9,21 @@ import {
 import { CarouselBanner } from "@/features/app/components/CarouselBanner";
 import { Container, Typography } from "@mui/material";
 
-interface ICategory {
-  icon: string;
-  name: string;
-}
+// interface ICategory {
+//   icon: string;
+//   name: string;
+// }
+
+// interface IProduct {
+//   id: number;
+//   image: string;
+//   title: string;
+//   price: number;
+//   evaluation?: {
+//     stars: number;
+//     numberEvaluation: number;
+//   };
+// }
 
 const MockProducts = [
   {
@@ -56,20 +67,31 @@ const MockProducts = [
     },
   },
 ];
-interface IProduct {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  evaluation?: {
-    stars: number;
-    numberEvaluation: number;
-  };
-}
+
+const mockImages = [
+  {
+    id: 1,
+    imageUrl:
+      "https://img.freepik.com/free-vector/flat-design-minimal-technology-sale-banner_23-2149113342.jpg",
+  },
+  {
+    id: 2,
+    imageUrl:
+      "https://img.freepik.com/free-vector/flat-design-minimal-technology-sale-banner_23-2149113342.jpg",
+  },
+  {
+    id: 3,
+    imageUrl:
+      "https://img.freepik.com/free-vector/flat-design-minimal-technology-sale-banner_23-2149113342.jpg",
+  },
+];
 
 export default function Page() {
   return (
     <Container maxWidth="xl">
+      <div className="flex justify-center">
+        <CarouselBanner BannerImages={mockImages} />
+      </div>
       <Carousel
         opts={{
           align: "start",
@@ -86,12 +108,6 @@ export default function Page() {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
-      <div className="flex justify-center">
-        <CarouselBanner />
-      </div>
-      <Typography className="text-2xl font-bold">
-        Procure por categoria
-      </Typography>
     </Container>
   );
 }

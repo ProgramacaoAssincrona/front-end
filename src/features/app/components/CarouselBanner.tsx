@@ -7,16 +7,20 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-export function CarouselBanner() {
+export function CarouselBanner({
+  BannerImages,
+}: {
+  BannerImages: { id: number; imageUrl: string }[];
+}) {
   return (
-    <Carousel className="w-full max-w-xs">
+    <Carousel>
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
+        {BannerImages.map((product) => (
+          <CarouselItem key={product.id}>
+            <div>
+              <Card className="border-none shadow-none">
+                <CardContent className="flex items-center justify-center w-full">
+                  <img src={product.imageUrl} />
                 </CardContent>
               </Card>
             </div>
