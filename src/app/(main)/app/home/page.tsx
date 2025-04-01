@@ -7,7 +7,9 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { CarouselBanner } from "@/features/app/components/CarouselBanner";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
+import { CategoryComponent } from "@/features/app/components/CategoryComponent";
+import { RecommendedProductsComponent } from "@/features/app/components/RecommendedProductsComponent";
 
 // interface ICategory {
 //   icon: string;
@@ -130,6 +132,50 @@ const mockImages = [
   },
 ];
 
+const mockCategories = [
+  {
+    id: 1,
+    icon: "/Category-CellPhone.png",
+    name: "Celulares",
+  },
+  {
+    id: 2,
+    icon: "/Category-CellPhone.png",
+    name: "Celulares",
+  },
+  {
+    id: 3,
+    icon: "/Category-CellPhone.png",
+    name: "Celulares",
+  },
+  {
+    id: 4,
+    icon: "/Category-CellPhone.png",
+    name: "Celulares",
+  },
+];
+
+const mockRecommendedProducts = [
+  {
+    id: 1,
+    image: "/control.png",
+    title: "Control",
+    price: 120.98,
+  },
+  {
+    id: 2,
+    image: "/control.png",
+    title: "Control",
+    price: 120.98,
+  },
+  {
+    id: 3,
+    image: "/control.png",
+    title: "Control",
+    price: 120.98,
+  },
+];
+
 export default function Page() {
   return (
     <Container maxWidth="xl">
@@ -137,56 +183,77 @@ export default function Page() {
         <CarouselBanner BannerImages={mockImages} />
       </div>
 
-      <div className="flex flex-col gap-10">
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          className="w-full relative"
-        >
-          <CarouselContent className="flex snap-x snap-mandatory gap-4">
-            {MockProducts.map((products, index) => (
-              <CarouselItem
-                key={index}
-                className="w-full snap-start flex-shrink-0"
-              >
-                <div className="flex w-full justify-evenly">
-                  {products.map((product) => (
-                    <ProductCard key={product.id} {...product} />
-                  ))}
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
-        </Carousel>
-
-        <Carousel
-          opts={{
-            align: "start",
-          }}
-          className="w-full relative"
-        >
-          <CarouselContent className="flex snap-x snap-mandatory gap-4">
-            {MockProducts.map((products, index) => (
-              <CarouselItem
-                key={index}
-                className="w-full snap-start flex-shrink-0"
-              >
-                <div className="flex w-full justify-evenly">
-                  {products.map((product) => (
-                    <ProductCard key={product.id} {...product} />
-                  ))}
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
-        </Carousel>
+      <div className="flex gap-4 w-full items-center justify-evenly">
+        {mockCategories.map(({ id, ...category }) => (
+          <CategoryComponent key={id} {...category} href={`home/${id}`} />
+        ))}
       </div>
 
+      <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-15">
+          <Typography variant="h4" className="font-bold">
+            Celulares
+          </Typography>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full relative"
+          >
+            <CarouselContent className="flex snap-x snap-mandatory gap-4">
+              {MockProducts.map((products, index) => (
+                <CarouselItem
+                  key={index}
+                  className="w-full snap-start flex-shrink-0"
+                >
+                  <div className="flex w-full justify-evenly">
+                    {products.map((product) => (
+                      <ProductCard key={product.id} {...product} />
+                    ))}
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+          </Carousel>
+        </div>
+
+        <div className="flex flex-col gap-15">
+          <Typography variant="h4" className="font-bold">
+            Celulares
+          </Typography>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full relative"
+          >
+            <CarouselContent className="flex snap-x snap-mandatory gap-4">
+              {MockProducts.map((products, index) => (
+                <CarouselItem
+                  key={index}
+                  className="w-full snap-start flex-shrink-0"
+                >
+                  <div className="flex w-full justify-evenly">
+                    {products.map((product) => (
+                      <ProductCard key={product.id} {...product} />
+                    ))}
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+          </Carousel>
+        </div>
+      </div>
+
+      <div className="flex gap-4 w-full items-center justify-evenly">
+        {mockRecommendedProducts.map((products) => (
+          <RecommendedProductsComponent key={products.id} {...products} />
+        ))}
+      </div>
     </Container>
   );
 }
