@@ -15,7 +15,7 @@ export default function ProductCard({
   evaluation,
 }: IProduct) {
   return (
-    <div className="shadow-md w-fit p-9 flex flex-col gap-5 rounded-xl">
+    <div className="shadow-md hover:shawdow-lg border-2 w-fit hover:cursor-pointer p-8 flex flex-col gap-5 rounded-xl">
       <img src={image} alt="abc" />
       <div>
         <p className="text-2xl">{title}</p>
