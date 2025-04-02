@@ -1,4 +1,4 @@
-import ImageAndTextPageComponent from "@/features/app/components/ImageAndTextPageComponent";
+import ImageAndTextPageComponent from "@/features/components/ImageAndTextPageComponent";
 
 export default function NotFound() {
   const src = `/notFound1.svg`;

@@ -1,4 +1,5 @@
-import ProductCard from "@/features/app/components/ProductCard";
+"use client";
+import ProductCard from "@/features/components/ProductCard";
 import {
   Carousel,
   CarouselContent,
@@ -6,10 +7,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { CarouselBanner } from "@/features/app/components/CarouselBanner";
+import { CarouselBanner } from "@/features/components/CarouselBanner";
 import { Container, Typography } from "@mui/material";
-import { CategoryComponent } from "@/features/app/components/CategoryComponent";
-import { RecommendedProductsComponent } from "@/features/app/components/RecommendedProductsComponent";
+import { CategoryComponent } from "@/features/components/CategoryComponent";
+import { RecommendedProductsComponent } from "@/features/components/RecommendedProductsComponent";
 
 // interface ICategory {
 //   icon: string;
@@ -177,6 +178,15 @@ const mockRecommendedProducts = [
 ];
 
 export default function Page() {
+  // const [enabledProductsByCategory, setEnabledProductsByCategory] =
+  //   useState(false);
+  // const [categoryId, setCategoryId] = useState<number>();
+
+  // const { getProductsByCategory } = useGetProductsByCategory({
+  //   enabled: enabledProductsByCategory,
+  //   categoryId: categoryId,
+  // });
+
   return (
     <Container maxWidth="xl">
       <div className="flex justify-center">
