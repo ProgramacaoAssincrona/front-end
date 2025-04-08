@@ -1,5 +1,4 @@
 "use client";
-import ProductCard from "@/features/components/ProductCard";
 import {
   Carousel,
   CarouselContent,
@@ -7,26 +6,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { CarouselBanner } from "@/features/components/CarouselBanner";
-import { Container, Typography } from "@mui/material";
 import { CategoryComponent } from "@/features/components/CategoryComponent";
+import ProductCard from "@/features/components/ProductCard";
 import { RecommendedProductsComponent } from "@/features/components/RecommendedProductsComponent";
-
-// interface ICategory {
-//   icon: string;
-//   name: string;
-// }
-
-// interface IProduct {
-//   id: number;
-//   image: string;
-//   title: string;
-//   price: number;
-//   evaluation?: {
-//     stars: number;
-//     numberEvaluation: number;
-//   };
-// }
+import { useGetCategories } from "@/features/hooks/useGetCategories";
+import { useGetProductsByCategory } from "@/features/hooks/useGetProductsByCategory";
+import { IGetCategories } from "@/features/types/backendTypes";
+import { Container, Typography } from "@mui/material";
+import { useState } from "react";
 
 const MockProducts = [
   [
@@ -36,7 +23,7 @@ const MockProducts = [
       title: "Control",
       price: 120.98,
       evaluation: {
-        stars: 5,
+        stars: 1,
         numberEvaluation: 108.0,
       },
     },
@@ -46,7 +33,7 @@ const MockProducts = [
       title: "Control",
       price: 120.98,
       evaluation: {
-        stars: 5,
+        stars: 2,
         numberEvaluation: 108.0,
       },
     },
@@ -56,7 +43,7 @@ const MockProducts = [
       title: "Control",
       price: 120.98,
       evaluation: {
-        stars: 5,
+        stars: 3,
         numberEvaluation: 108.0,
       },
     },
@@ -115,47 +102,6 @@ const MockProducts = [
   ],
 ];
 
-const mockImages = [
-  {
-    id: 1,
-    imageUrl:
-      "https://img.freepik.com/free-vector/flat-design-minimal-technology-sale-banner_23-2149113342.jpg",
-  },
-  {
-    id: 2,
-    imageUrl:
-      "https://img.freepik.com/free-vector/flat-design-minimal-technology-sale-banner_23-2149113342.jpg",
-  },
-  {
-    id: 3,
-    imageUrl:
-      "https://img.freepik.com/free-vector/flat-design-minimal-technology-sale-banner_23-2149113342.jpg",
-  },
-];
-
-const mockCategories = [
-  {
-    id: 1,
-    icon: "/Category-CellPhone.png",
-    name: "Celulares",
-  },
-  {
-    id: 2,
-    icon: "/Category-CellPhone.png",
-    name: "Celulares",
-  },
-  {
-    id: 3,
-    icon: "/Category-CellPhone.png",
-    name: "Celulares",
-  },
-  {
-    id: 4,
-    icon: "/Category-CellPhone.png",
-    name: "Celulares",
-  },
-];
-
 const mockRecommendedProducts = [
   {
     id: 1,
@@ -178,91 +124,113 @@ const mockRecommendedProducts = [
 ];
 
 export default function Page() {
-  // const [enabledProductsByCategory, setEnabledProductsByCategory] =
-  //   useState(false);
-  // const [categoryId, setCategoryId] = useState<number>();
+  const [searchCategory, setSearchCategory] = useState();
+  const { getCategoriesData } = useGetCategories();
+  const { getProductsByCategory, getProductsByCategoryData } =
+    useGetProductsByCategory({
+      enabled: false,
+      categoryId: 1,
+    });
 
-  // const { getProductsByCategory } = useGetProductsByCategory({
-  //   enabled: enabledProductsByCategory,
-  //   categoryId: categoryId,
-  // });
+  // useEffect(() => {
+  //   {!getCategoriesData?.response && }
+  // }, [getCategoriesData]);
 
   return (
-    <Container maxWidth="xl">
-      <div className="flex justify-center">
-        <CarouselBanner BannerImages={mockImages} />
-      </div>
-
+    <Container maxWidth="xl" className="flex flex-col gap-24 py-24">
       <div className="flex gap-4 w-full items-center justify-evenly">
-        {mockCategories.map(({ id, ...category }) => (
-          <CategoryComponent key={id} {...category} href={`home/${id}`} />
-        ))}
+        {!getCategoriesData?.response &&
+          getCategoriesData?.response.map((item: IGetCategories) => (
+            <CategoryComponent key={item.id} {...item} />
+          ))}
       </div>
 
-      <div className="flex flex-col gap-24">
-        <div className="flex flex-col gap-15">
-          <Typography variant="h4" className="font-bold">
-            Celulares
-          </Typography>
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            className="w-full relative"
-          >
-            <CarouselContent className="flex snap-x snap-mandatory gap-4">
-              {MockProducts.map((products, index) => (
-                <CarouselItem
-                  key={index}
-                  className="w-full snap-start flex-shrink-0"
-                >
-                  <div className="flex w-full justify-evenly">
-                    {products.map((product) => (
-                      <ProductCard key={product.id} {...product} />
-                    ))}
-                  </div>
-                </CarouselItem>
+      <div className="flex flex-col gap-10">
+        <Typography variant="h4" className="font-bold">
+          Celulares
+        </Typography>
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="w-full relative"
+        >
+          <CarouselContent className="flex snap-x snap-mandatory gap-4">
+            {MockProducts.map((products, index) => (
+              <CarouselItem
+                key={index}
+                className="w-full snap-start flex-shrink-0"
+              >
+                <div className="flex w-full justify-evenly">
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      href={`product/${product.id}`}
+                      {...product}
+                    />
+                  ))}
+                </div>
+              </CarouselItem>
+            ))}
+            {!getCategoriesData?.response &&
+              getCategoriesData?.response.map((item: IGetCategories) => (
+                
               ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
-          </Carousel>
-        </div>
-
-        <div className="flex flex-col gap-15">
-          <Typography variant="h4" className="font-bold">
-            Celulares
-          </Typography>
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            className="w-full relative"
-          >
-            <CarouselContent className="flex snap-x snap-mandatory gap-4">
-              {MockProducts.map((products, index) => (
-                <CarouselItem
-                  key={index}
-                  className="w-full snap-start flex-shrink-0"
-                >
-                  <div className="flex w-full justify-evenly">
-                    {products.map((product) => (
-                      <ProductCard key={product.id} {...product} />
-                    ))}
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
-          </Carousel>
-        </div>
+          </CarouselContent>
+          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+        </Carousel>
       </div>
 
-      <div className="flex gap-4 w-full items-center justify-evenly">
-        {mockRecommendedProducts.map((products) => (
-          <RecommendedProductsComponent key={products.id} {...products} />
-        ))}
+      <div className="flex flex-col gap-10">
+        <Typography variant="h4" className="font-bold">
+          Celulares
+        </Typography>
+        <Carousel
+          opts={{
+            align: "start",
+          }}
+          className="w-full relative"
+        >
+          <CarouselContent className="flex snap-x snap-mandatory gap-4">
+            {MockProducts.map((products, index) => (
+              <CarouselItem
+                key={index}
+                className="w-full snap-start flex-shrink-0"
+              >
+                <div className="flex w-full justify-evenly">
+                  {products.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      href={`product/${product.id}`}
+                      {...product}
+                    />
+                  ))}
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+          <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+        </Carousel>
+      </div>
+
+      <div className="flex flex-col gap-10">
+        <Typography
+          variant="h4"
+          className="font-bold w-full flex justify-center"
+        >
+          Produtos recomendados
+        </Typography>
+        <div className="flex gap-4 w-full items-center justify-evenly">
+          {mockRecommendedProducts.map((products) => (
+            <RecommendedProductsComponent
+              key={products.id}
+              href={`product/${products.id}`}
+              {...products}
+            />
+          ))}
+        </div>
       </div>
     </Container>
   );

@@ -1,8 +1,6 @@
 "use client";
 import MenuIcon from "@mui/icons-material/Menu";
-import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import SearchIcon from "@mui/icons-material/Search";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import {
   AppBar,
   Box,
@@ -96,7 +94,7 @@ export default function Navbar() {
           </Menu>
         </Box>
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
-          <IconButton
+          {/* <IconButton
             onClick={handleCloseNavMenu}
             sx={{ my: 2, color: "black", display: "block" }}
           >
@@ -107,7 +105,7 @@ export default function Navbar() {
             sx={{ my: 2, color: "black", display: "block" }}
           >
             <Person2OutlinedIcon sx={{ color: "#0214DC" }} />
-          </IconButton>
+          </IconButton> */}
         </Box>
       </Container>
     </AppBar>
