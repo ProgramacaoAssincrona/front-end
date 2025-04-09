@@ -1,23 +1,21 @@
 import { Button } from "@mui/material";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface IProduct {
+  id: number;
   image: string;
   title: string;
   price: number;
-  href: string;
-  onClick?: () => void;
 }
 export function RecommendedProductsComponent({
+  id,
   image,
   title,
   price,
-  href,
-  onClick,
 }: IProduct) {
+  const router = useRouter();
   return (
-    <Link
-      href={href}
+    <div
       className="w-fit hover:cursor-pointer p-8 flex flex-col gap-5 rounded-xl h-130
     hover:shadow-[var(--blue-shadow)] shadow-[var(--shadow)] border hover:border-(--border)"
     >
@@ -31,7 +29,7 @@ export function RecommendedProductsComponent({
           {price}
         </p>
         <Button
-          onClick={onClick}
+          onClick={() => router.push(`/product/${id}`)}
           variant="contained"
           sx={{
             backgroundColor: "var(--button)",
@@ -42,6 +40,6 @@ export function RecommendedProductsComponent({
           Comprar
         </Button>
       </div>
-    </Link>
+    </div>
   );
 }

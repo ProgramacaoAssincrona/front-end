@@ -13,7 +13,7 @@ import { useGetCategories } from "@/features/hooks/useGetCategories";
 import { useGetProductsByCategory } from "@/features/hooks/useGetProductsByCategory";
 import { IGetCategories } from "@/features/types/backendTypes";
 import { Container, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const MockProducts = [
   [
@@ -124,17 +124,25 @@ const mockRecommendedProducts = [
 ];
 
 export default function Page() {
-  const [searchCategory, setSearchCategory] = useState();
+  const [searchCategory, setSearchCategory] = useState<number>(0);
+  const [searchCategoryEnabled, setSearchCategoryEnabled] = useState(false);
   const { getCategoriesData } = useGetCategories();
-  const { getProductsByCategory, getProductsByCategoryData } =
-    useGetProductsByCategory({
-      enabled: false,
-      categoryId: 1,
-    });
+  const { getProductsByCategoryData } = useGetProductsByCategory({
+    categoryId: searchCategory,
+    enabled: searchCategoryEnabled,
+  });
 
-  // useEffect(() => {
-  //   {!getCategoriesData?.response && }
-  // }, [getCategoriesData]);
+  useEffect(() => {
+    if (!!getCategoriesData?.response) {
+      getCategoriesData.response.map((item: IGetCategories) => {
+        setSearchCategory(item.id);
+        setSearchCategoryEnabled(true);
+        getProductsByCategoryData?.response.map((product) => {
+          console.log(product);
+        });
+      });
+    }
+  }, [getCategoriesData]);
 
   return (
     <Container maxWidth="xl" className="flex flex-col gap-24 py-24">
@@ -165,17 +173,12 @@ export default function Page() {
                   {products.map((product) => (
                     <ProductCard
                       key={product.id}
-                      href={`product/${product.id}`}
                       {...product}
                     />
                   ))}
                 </div>
               </CarouselItem>
             ))}
-            {!getCategoriesData?.response &&
-              getCategoriesData?.response.map((item: IGetCategories) => (
-                
-              ))}
           </CarouselContent>
           <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
           <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
@@ -202,7 +205,6 @@ export default function Page() {
                   {products.map((product) => (
                     <ProductCard
                       key={product.id}
-                      href={`product/${product.id}`}
                       {...product}
                     />
                   ))}
@@ -226,7 +228,6 @@ export default function Page() {
           {mockRecommendedProducts.map((products) => (
             <RecommendedProductsComponent
               key={products.id}
-              href={`product/${products.id}`}
               {...products}
             />
           ))}

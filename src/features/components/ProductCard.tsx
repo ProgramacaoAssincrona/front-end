@@ -1,7 +1,8 @@
 import { Button, Rating } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 interface IProduct {
-  href: string;
+  id: number;
   image: string;
   title: string;
   price: number;
@@ -12,11 +13,13 @@ interface IProduct {
 }
 
 export default function ProductCard({
+  id,
   image,
   title,
   price,
   evaluation,
 }: IProduct) {
+  const router = useRouter();
   return (
     <div className="w-fit hover:cursor-pointer p-8 flex flex-col gap-5 ">
       <img
@@ -38,6 +41,11 @@ export default function ProductCard({
         <Button
           variant="contained"
           className="w-full"
+          onClick={() =>
+            router.push(`
+            product/${id}
+          `)
+          }
           sx={{
             backgroundColor: "var(--button)",
             ":hover": { backgroundColor: "var(--buttonHover)" },
