@@ -5,9 +5,6 @@ const api = axios.create({
 });
 
 class Service {
-  getAddressByCEP = (cep?: string) =>
-    axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-
   findManyProductsByCategory = ({ categoryId }: { categoryId: number }) =>
     api.get(`find-products-by-category/${categoryId}`);
 

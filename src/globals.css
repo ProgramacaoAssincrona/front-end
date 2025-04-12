@@ -10,6 +10,8 @@
   --footer-height: 4.625rem;
   --font: #383838;
   --bg: white;
+  --bgFrete: #F9FAFB;
+  --textFrete: #0CD66E;
   --button: #0214DC;
   --emphasis: #5B6BE2;
   --border: #E5E5E5;
@@ -52,7 +54,7 @@ h6 {
   }
 
   h2 {
-    @apply text-[2rem] font-bold leading-[3rem];
+    @apply text-[2.5rem] font-bold leading-[3rem];
   }
 
   h3 {
