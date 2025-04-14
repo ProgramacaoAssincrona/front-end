@@ -9,3 +9,9 @@ Front-end:
  - Mui Material  
  
 Back-end:  
+ - Nestjs
+ - Typescript
+ - Prisma
+
+Banco:
+ - Postgresql
