@@ -1,11 +1,11 @@
 "use client";
 
 interface ICategoryCard {
-  icon: string;
+  img_url: string;
   name: string;
 }
 
-export function CategoryComponent({ icon, name }: ICategoryCard) {
+export function CategoryComponent({ img_url: icon, name }: ICategoryCard) {
   // const {getProductsByCategory, getProductsByCategoryData} =
   //   useGetProductsByCategory({ categoryId: 1, enabled: true });
 

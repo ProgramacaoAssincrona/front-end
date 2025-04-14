@@ -1,7 +1,7 @@
 export interface IGetCategories {
   id: number;
   name: string;
-  icon: string;
+  img_url: string;
 }
 
 export interface IFindProductsByCategoryResponse {

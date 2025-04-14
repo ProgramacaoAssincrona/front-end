@@ -11,7 +11,10 @@ import ProductCard from "@/features/components/ProductCard";
 import { RecommendedProductsComponent } from "@/features/components/RecommendedProductsComponent";
 import { useGetCategories } from "@/features/hooks/useGetCategories";
 import { useGetProductsByCategory } from "@/features/hooks/useGetProductsByCategory";
-import { IGetCategories } from "@/features/types/backendTypes";
+import {
+  IFindProductsByCategoryResponse,
+  IGetCategories,
+} from "@/features/types/backendTypes";
 import { Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -132,23 +135,34 @@ export default function Page() {
     enabled: searchCategoryEnabled,
   });
 
+  const handleProductsLoaded = (
+    products: IFindProductsByCategoryResponse[]
+  ) => {
+    console.log("Produtos carregados:", products);
+  };
+
   useEffect(() => {
-    if (!!getCategoriesData?.response) {
-      getCategoriesData.response.map((item: IGetCategories) => {
-        setSearchCategory(item.id);
-        setSearchCategoryEnabled(true);
-        getProductsByCategoryData?.response.map((product) => {
-          console.log(product);
-        });
-      });
-    }
-  }, [getCategoriesData]);
+    const fetchCategoriesAndProducts = async () => {
+      if (getCategoriesData?.response) {
+        for (const item of getCategoriesData.response) {
+          setSearchCategory(item.id);
+          setSearchCategoryEnabled(true);
+
+          if (getProductsByCategoryData?.response) {
+            handleProductsLoaded(getProductsByCategoryData.response);
+          }
+        }
+      }
+    };
+
+    fetchCategoriesAndProducts();
+  }, [getCategoriesData, getProductsByCategoryData]);
 
   return (
     <Container maxWidth="xl" className="flex flex-col gap-24 py-24">
       <div className="flex gap-4 w-full items-center justify-evenly">
-        {!getCategoriesData?.response &&
-          getCategoriesData?.response.map((item: IGetCategories) => (
+        {getCategoriesData?.response &&
+          getCategoriesData.response.map((item: IGetCategories) => (
             <CategoryComponent key={item.id} {...item} />
           ))}
       </div>
@@ -171,10 +185,7 @@ export default function Page() {
               >
                 <div className="flex w-full justify-evenly">
                   {products.map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      {...product}
-                    />
+                    <ProductCard key={product.id} {...product} />
                   ))}
                 </div>
               </CarouselItem>
@@ -203,10 +214,7 @@ export default function Page() {
               >
                 <div className="flex w-full justify-evenly">
                   {products.map((product) => (
-                    <ProductCard
-                      key={product.id}
-                      {...product}
-                    />
+                    <ProductCard key={product.id} {...product} />
                   ))}
                 </div>
               </CarouselItem>
@@ -226,10 +234,7 @@ export default function Page() {
         </Typography>
         <div className="flex gap-4 w-full items-center justify-evenly">
           {mockRecommendedProducts.map((products) => (
-            <RecommendedProductsComponent
-              key={products.id}
-              {...products}
-            />
+            <RecommendedProductsComponent key={products.id} {...products} />
           ))}
         </div>
       </div>
